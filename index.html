@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Countdown</title>
+    <!-- <link rel="apple-touch-icon" href="icon.png"/> -->
+    <!-- <link rel="apple-touch-icon" sizes="72x72" href="icon.png"/> -->
+    <!-- <link rel="apple-touch-icon" sizes="114x114" href="icon.png"/> -->
+</head>
+
+<body>
+    <p id="Fruitbowl_timeLeft"></p>
+
+    <script type="text/javascript">
+        function projectPage(projectInput, deadlineInput) {
+            //when the document is finished loading, replace everything
+            //between the <a ...> </a> tags with the value of
+
+            var projectName = "";
+            var projectName = projectInput;
+
+            var now = new Date(Date.now());
+            var due = new Date(deadlineInput);
+            var until = new Date(due - now + (24*60*60*1000));
+
+            function toDays(d) {
+                return d / (24*60*60*1000);
+            }
+
+            var daysUntil = toDays(until);
+
+            //weeksUntil = floor(daysUntil/7) + remainder as a whole day i.e. 3.6 = 3 weeks & 6 days
+            var weeksUntil = Math.floor(daysUntil / 7) + Math.floor((daysUntil / 7 - Math.floor(daysUntil / 7)) * 7) / 10;
+
+            var timeUntil = 0;
+            var wordsUntil, fullUntil = "";
+
+            function daysOrWeeks(d) {
+                if (weeksUntil > 2) {
+                    wordsUntil = "weeks";
+                    timeUntil = weeksUntil;
+
+                    if (weeksUntil > 8) {
+                        timeUntil = Math.floor(weeksUntil);
+                    }
+
+                }
+                else {
+                    timeUntil = Math.floor(daysUntil);
+                    wordsUntil = "days";
+                }
+                fullUntil = '<p class="number">' + timeUntil.toString() + '</p><p class="words">' + wordsUntil + '</p>';
+            }
+
+            daysOrWeeks(daysUntil);
+
+            /*document.write("<h1>"+projectName+"</h1>");
+            document.write("<h3>"+fullUntil+"</h3>");*/
+
+            return fullUntil;
+        }
+        window.onload = function() {
+
+            var projectName = "Fruitbowl";
+            var deadline = new Date(2018, 11, 07); /* Month has to be -1 as months are zero-based in JS */
+
+            document.getElementById("Fruitbowl_timeLeft").innerHTML = projectPage(projectName, deadline);
+
+        }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css?family=Chewy" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Chewy', cursive;
+            width: 100%;
+            font-weight: bold;
+            letter-spacing: 0px;
+            text-align: center;
+            background-color: #2d72d9;
+            color: rgba(255,255,255,0.5);
+            text-shadow: -4px -3px 0px #fff, 8px 6px 0px rgba(0,0,0,0.15);
+        }
+
+        .number {
+            margin: -0.125em 0 0 0;
+            font-size: calc(20vw + 20vh + 10vmin);
+        }
+
+        .words {
+            margin: -0.8em 0 0 0;
+            font-size: calc(25vmin);
+        }
+    </style>
+
+</body>
+
+</html>

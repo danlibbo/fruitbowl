@@ -14,6 +14,9 @@
     <p id="Fruitbowl_timeLeft"></p>
 
     <script type="text/javascript">
+        var projectName = "Fruitbowl";
+        var deadline = new Date(2018, 11, 07); /* Month has to be -1 as months are zero-based in JS */
+        
         function projectPage(projectInput, deadlineInput) {
             //when the document is finished loading, replace everything
             //between the <a ...> </a> tags with the value of
@@ -62,12 +65,7 @@
             return fullUntil;
         }
         window.onload = function() {
-
-            var projectName = "Fruitbowl";
-            var deadline = new Date(2018, 11, 07); /* Month has to be -1 as months are zero-based in JS */
-
             document.getElementById("Fruitbowl_timeLeft").innerHTML = projectPage(projectName, deadline);
-
         }
     </script>
 

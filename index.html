@@ -8,6 +8,7 @@
     <!-- <link rel="apple-touch-icon" href="icon.png"/> -->
     <!-- <link rel="apple-touch-icon" sizes="72x72" href="icon.png"/> -->
     <!-- <link rel="apple-touch-icon" sizes="114x114" href="icon.png"/> -->
+    <meta http-equiv="refresh" content="30">
 </head>
 
 <body>
@@ -15,7 +16,12 @@
 
     <script type="text/javascript">
         var projectName = "Fruitbowl";
-        var deadline = new Date(2022, 10, 30); /* Month has to be -1 as months are zero-based in JS */
+        
+        /* Set deadline to be the date the countdown should countdown to */
+        var deadline = new Date(2022, 10, 30); 
+        
+        /* The countdown will show in weeks until it gets below this number */
+        var showAsDaysWhenFewerThanThisWeeks = 40; 
         
         function projectPage(projectInput, deadlineInput) {
             //when the document is finished loading, replace everything
@@ -25,7 +31,7 @@
             var projectName = projectInput;
 
             var now = new Date(Date.now());
-            var due = new Date(deadlineInput);
+            var due = new Date(deadlineInput.setMonth(deadlineInput.getMonth()+1))); /* Month is zero-indexed in JS so +1 */
             var until = new Date(due - now + (24*60*60*1000));
 
             function toDays(d) {
@@ -41,7 +47,7 @@
             var wordsUntil, fullUntil = "";
 
             function daysOrWeeks(d) {
-                if (weeksUntil > 2) {
+                if (weeksUntil > showAsDaysWhenFewerThanThisWeeks) {
                     wordsUntil = "weeks";
                     timeUntil = weeksUntil;
 

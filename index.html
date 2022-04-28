@@ -18,7 +18,10 @@
         var projectName = "Fruitbowl";
         
         /* Set deadline to be the date the countdown should countdown to */
-        var deadline = new Date(2023, 2, 31); 
+        var deadlineYear = 2023;
+        var deadlineMonth = 3; /* Month number where January=1 and December=12 */
+        var deadlineDate = 31;
+        var deadline = new Date(deadlineYear, deadlineMonth-1, deadlineDate); /* Month is zero-indexed in JS so -1 from input */
         
         /* The countdown will show in weeks until it gets below this number */
         var showAsDaysWhenFewerThanThisWeeks = 40; 
@@ -31,7 +34,7 @@
             var projectName = projectInput;
 
             var now = new Date(Date.now());
-            var due = new Date(deadlineInput.setMonth(deadlineInput.getMonth()+1)); /* Month is zero-indexed in JS so +1 */
+            var due = new Date(deadlineInput.setMonth(deadlineInput.getMonth()));
             var until = new Date(due - now + (24*60*60*1000));
 
             function toDays(d) {
